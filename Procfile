@@ -1,1 +1,1 @@
-web:gunicron Django_TechShare.wsgi --log-file=-
+web: waitress-serve --port=$PORT Django_TechShare.wsgi:application
