@@ -1,1 +1,1 @@
-web: gunicron Django_TechShare.wsgi
+web: gunicron Django_TechShare.wsgi --log-file -

@@ -13,16 +13,16 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from boto.s3.connection import S3Connection
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-S3_SECRET = str(S3Connection(os.environ.get('DJANGO_SECRET')))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = S3_SECRET
+SECRET_KEY = os.environ.get('DJANGO_SECRET')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,16 +93,15 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': str(S3Connection(os.environ.get('DB_NAME'))),
-        'USER': str(S3Connection(os.environ.get('DB_USER'))),
-        'PASSWORD': str(S3Connection(os.environ.get('DB_PASS'))),
-        'HOST': str(S3Connection(os.environ.get('DB_HOST'))),
-        'PORT': str(S3Connection(os.environ.get('DB_PORT'))),
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
