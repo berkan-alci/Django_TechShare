@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(S3Connection(os.environ['DJANGO_SECRET']))
+SECRET_KEY = S3Connection(os.environ['DJANGO_SECRET'])
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -96,11 +96,11 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': str(S3Connection(os.environ['DB_NAME'])),
-        'USER': str(S3Connection(os.environ['DB_USER'])),
-        'PASSWORD': str(S3Connection(os.environ['DB_PASS'])),
-        'HOST': str(S3Connection(os.environ['DB_HOST'])),
-        'PORT': str(S3Connection(os.environ['DB_PORT'])),
+        'NAME': S3Connection(os.environ['DB_NAME']),
+        'USER': S3Connection(os.environ['DB_USER']),
+        'PASSWORD': S3Connection(os.environ['DB_PASS']),
+        'HOST': S3Connection(os.environ['DB_HOST']),
+        'PORT': S3Connection(os.environ['DB_PORT']),
     }
 }
 
