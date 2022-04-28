@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET')
+SECRET_KEY = str(os.environ.get('DJANGO_SECRET'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -73,7 +73,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates'],
+            f'{BASE_DIR}/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,10 +145,10 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/users/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    f'{BASE_DIR}/static'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/images/users'
+MEDIA_ROOT = f'{BASE_DIR}/static/images/users'
 
 # STATIC_ROOT =
 
