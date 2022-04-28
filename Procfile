@@ -1,0 +1,1 @@
+web: gunicron Django_TechShare.wsgi
