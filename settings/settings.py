@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -26,8 +26,7 @@ SECRET_KEY = str(os.environ.get('DJANGO_SECRET'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost",
-                 "host=aqueous-bayou-56093.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 # if not DEBUG:
 #     ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOST')]
 
@@ -62,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 
 
 ]
@@ -73,7 +72,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            f'{BASE_DIR}/templates'],
+            BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,15 +91,14 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+        'NAME': str(os.environ.get('DB_NAME')),
+        'USER': str(os.environ.get('DB_USER')),
+        'PASSWORD': str(os.environ.get('DB_PASS')),
+        'HOST': str(os.environ.get('DB_HOST')),
+        'PORT': str(os.environ.get('DB_PORT')),
     }
 }
 
@@ -140,15 +138,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/users/'
 
 STATICFILES_DIRS = [
-    f'{BASE_DIR}/static'
+    BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT = f'{BASE_DIR}/static/images/users'
+MEDIA_ROOT = BASE_DIR / 'static/images/users'
 
 # STATIC_ROOT =
 

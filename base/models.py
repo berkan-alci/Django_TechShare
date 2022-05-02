@@ -6,11 +6,12 @@ import uuid
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, null=True)
+    username = models.CharField(unique=True, max_length=200, null=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True)
     avatar = models.ImageField(null=True, default="avatar.svg")
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
 
